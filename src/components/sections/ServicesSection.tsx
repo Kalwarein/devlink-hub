@@ -1,37 +1,44 @@
+import { Link } from "react-router-dom";
 import { Globe, Smartphone, Settings, Rocket, Layers, Palette, ArrowRight } from "lucide-react";
 
 const services = [
   {
+    id: "website-development",
     icon: Globe,
     title: "Web Development",
     description: "Custom websites and web applications built with modern technologies for optimal performance and SEO.",
     features: ["React & Next.js", "E-commerce", "CMS Integration"],
   },
   {
+    id: "mobile-app-development",
     icon: Smartphone,
     title: "Mobile App Development",
     description: "Native and cross-platform mobile apps that deliver exceptional user experiences on iOS and Android.",
     features: ["React Native", "Flutter", "Native iOS/Android"],
   },
   {
+    id: "custom-software-solutions",
     icon: Settings,
     title: "Business Software",
     description: "Custom enterprise solutions tailored to streamline your business operations and boost productivity.",
     features: ["CRM Systems", "ERP Solutions", "Automation"],
   },
   {
+    id: "startup-mvps",
     icon: Rocket,
     title: "Startup MVPs",
     description: "Rapid prototyping and MVP development to validate your ideas and get to market quickly.",
     features: ["Fast Delivery", "Scalable Architecture", "Cost-Effective"],
   },
   {
+    id: "api-integrations",
     icon: Layers,
     title: "API & Integrations",
     description: "Seamless third-party integrations and custom API development to connect your systems.",
     features: ["REST APIs", "GraphQL", "Payment Gateways"],
   },
   {
+    id: "ui-ux-design",
     icon: Palette,
     title: "UI/UX Design",
     description: "Beautiful, intuitive interfaces designed to delight users and drive conversions.",
@@ -85,15 +92,23 @@ export function ServicesSection() {
                 ))}
               </div>
 
-              <a
-                href="#contact"
+              <Link
+                to={`/services/${service.id}`}
                 className="inline-flex items-center text-primary font-medium group/link"
               >
                 Learn more
                 <ArrowRight className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
-              </a>
+              </Link>
             </div>
           ))}
+        </div>
+
+        {/* View All CTA */}
+        <div className="text-center mt-12">
+          <Link to="/services" className="btn-secondary inline-flex items-center gap-2">
+            View All Services
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </div>
     </section>

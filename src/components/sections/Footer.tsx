@@ -1,30 +1,30 @@
+import { Link } from "react-router-dom";
 import { Code2, MapPin, Mail, Phone, Linkedin, Twitter, Github, Instagram } from "lucide-react";
 
 const quickLinks = [
   { title: "Home", href: "/" },
-  { title: "About", href: "#about" },
-  { title: "Services", href: "#services" },
-  { title: "Portfolio", href: "#portfolio" },
-  { title: "Blog", href: "#blog" },
-  { title: "Contact", href: "#contact" },
+  { title: "About", href: "/about" },
+  { title: "Services", href: "/services" },
+  { title: "Portfolio", href: "/portfolio" },
+  { title: "Blog", href: "/blog" },
+  { title: "Contact", href: "/contact" },
 ];
 
 const services = [
-  "Web Development",
-  "Mobile App Development",
-  "Custom Software",
-  "UI/UX Design",
-  "API Integration",
-  "Maintenance & Support",
+  { title: "Web Development", href: "/services/website-development" },
+  { title: "Mobile App Development", href: "/services/mobile-app-development" },
+  { title: "Custom Software", href: "/services/custom-software-solutions" },
+  { title: "UI/UX Design", href: "/services/ui-ux-design" },
+  { title: "Maintenance & Support", href: "/services/maintenance-support" },
 ];
 
 const cities = [
-  "Freetown",
-  "London",
-  "New York",
-  "Lagos",
-  "Dubai",
-  "Toronto",
+  { title: "Freetown", href: "/cities/freetown" },
+  { title: "London", href: "/cities/london" },
+  { title: "New York", href: "/cities/new-york" },
+  { title: "Lagos", href: "/cities/lagos" },
+  { title: "Dubai", href: "/cities/dubai" },
+  { title: "Toronto", href: "/cities/toronto" },
 ];
 
 const socials = [
@@ -41,12 +41,12 @@ export function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
+            <Link to="/" className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
                 <Code2 className="w-6 h-6 text-primary-foreground" />
               </div>
               <span className="text-xl font-bold">DevLink</span>
-            </div>
+            </Link>
             <p className="text-sidebar-foreground/70 mb-6 max-w-sm leading-relaxed">
               Building digital products that scale. We help businesses transform 
               their ideas into powerful web and mobile solutions.
@@ -77,12 +77,12 @@ export function Footer() {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.title}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-sidebar-foreground/70 hover:text-primary transition-colors text-sm"
                   >
                     {link.title}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -93,13 +93,13 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Services</h4>
             <ul className="space-y-3">
               {services.map((service) => (
-                <li key={service}>
-                  <a
-                    href="#services"
+                <li key={service.title}>
+                  <Link
+                    to={service.href}
                     className="text-sidebar-foreground/70 hover:text-primary transition-colors text-sm"
                   >
-                    {service}
-                  </a>
+                    {service.title}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -110,13 +110,13 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Cities We Serve</h4>
             <ul className="space-y-3">
               {cities.map((city) => (
-                <li key={city}>
-                  <a
-                    href="#cities"
+                <li key={city.title}>
+                  <Link
+                    to={city.href}
                     className="text-sidebar-foreground/70 hover:text-primary transition-colors text-sm"
                   >
-                    {city}
-                  </a>
+                    {city.title}
+                  </Link>
                 </li>
               ))}
             </ul>

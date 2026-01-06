@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 export function CTASection() {
@@ -28,19 +29,19 @@ export function CTASection() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-300">
-            <a
-              href="#contact-form"
+            <Link
+              to="/start-project"
               className="inline-flex items-center justify-center gap-2 bg-white text-primary font-semibold px-8 py-4 rounded-xl hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl group"
             >
               Start Your Project
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a
-              href="#portfolio"
+            </Link>
+            <Link
+              to="/portfolio"
               className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white/30 text-primary-foreground font-semibold px-8 py-4 rounded-xl hover:bg-white/10 transition-all duration-300"
             >
               View Our Work
-            </a>
+            </Link>
           </div>
 
           {/* Trust Badges */}

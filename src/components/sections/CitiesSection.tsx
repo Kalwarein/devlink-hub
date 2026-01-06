@@ -1,18 +1,19 @@
+import { Link } from "react-router-dom";
 import { MapPin, ArrowRight } from "lucide-react";
 
 const cities = [
-  { name: "Freetown", country: "Sierra Leone", featured: true },
-  { name: "Bo", country: "Sierra Leone", featured: false },
-  { name: "Kenema", country: "Sierra Leone", featured: false },
-  { name: "Makeni", country: "Sierra Leone", featured: false },
-  { name: "London", country: "United Kingdom", featured: true },
-  { name: "New York", country: "USA", featured: true },
-  { name: "Lagos", country: "Nigeria", featured: true },
-  { name: "Accra", country: "Ghana", featured: false },
-  { name: "Nairobi", country: "Kenya", featured: false },
-  { name: "Dubai", country: "UAE", featured: true },
-  { name: "Toronto", country: "Canada", featured: false },
-  { name: "Berlin", country: "Germany", featured: false },
+  { id: "freetown", name: "Freetown", country: "Sierra Leone", featured: true },
+  { id: "bo", name: "Bo", country: "Sierra Leone", featured: false },
+  { id: "kenema", name: "Kenema", country: "Sierra Leone", featured: false },
+  { id: "makeni", name: "Makeni", country: "Sierra Leone", featured: false },
+  { id: "london", name: "London", country: "United Kingdom", featured: true },
+  { id: "new-york", name: "New York", country: "USA", featured: true },
+  { id: "lagos", name: "Lagos", country: "Nigeria", featured: true },
+  { id: "accra", name: "Accra", country: "Ghana", featured: false },
+  { id: "nairobi", name: "Nairobi", country: "Kenya", featured: false },
+  { id: "dubai", name: "Dubai", country: "UAE", featured: true },
+  { id: "toronto", name: "Toronto", country: "Canada", featured: false },
+  { id: "berlin", name: "Berlin", country: "Germany", featured: false },
 ];
 
 export function CitiesSection() {
@@ -34,9 +35,9 @@ export function CitiesSection() {
         {/* Cities Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {cities.map((city, index) => (
-            <a
-              key={city.name}
-              href={`#city-${city.name.toLowerCase()}`}
+            <Link
+              key={city.id}
+              to={`/cities/${city.id}`}
               className="card-city group"
               style={{ animationDelay: `${index * 50}ms` }}
             >
@@ -59,7 +60,7 @@ export function CitiesSection() {
                 Learn more
                 <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
               </div>
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -68,10 +69,10 @@ export function CitiesSection() {
           <p className="text-muted-foreground mb-4">
             Don't see your city? We work remotely with clients worldwide.
           </p>
-          <a href="#contact" className="btn-primary inline-flex items-center gap-2">
+          <Link to="/contact" className="btn-primary inline-flex items-center gap-2">
             Contact Us
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

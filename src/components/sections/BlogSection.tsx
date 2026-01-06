@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
 
 const posts = [
   {
+    id: "future-of-mobile-app-development",
     title: "The Future of Mobile App Development in 2024",
     excerpt: "Explore the latest trends and technologies shaping mobile development, from AI integration to cross-platform solutions.",
     category: "Technology",
@@ -10,6 +12,7 @@ const posts = [
     featured: true,
   },
   {
+    id: "choosing-right-tech-stack",
     title: "How to Choose the Right Tech Stack for Your Startup",
     excerpt: "A comprehensive guide to selecting technologies that scale with your business growth.",
     category: "Startup Advice",
@@ -18,6 +21,7 @@ const posts = [
     featured: false,
   },
   {
+    id: "ecommerce-case-study",
     title: "Case Study: Building an E-commerce Platform That Handles 10K Orders/Day",
     excerpt: "Learn how we architected a high-performance e-commerce solution for a growing retail brand.",
     category: "Case Study",
@@ -26,6 +30,7 @@ const posts = [
     featured: false,
   },
   {
+    id: "ux-best-practices-b2b",
     title: "UX Best Practices for B2B Software Applications",
     excerpt: "Designing enterprise software doesn't have to mean sacrificing user experience. Here's how.",
     category: "Design",
@@ -50,67 +55,66 @@ export function BlogSection() {
               Expert perspectives on software development, design, and business technology.
             </p>
           </div>
-          <a
-            href="#blog"
+          <Link
+            to="/blog"
             className="btn-secondary mt-6 md:mt-0 inline-flex items-center gap-2 self-start"
           >
             View All Posts
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
 
         {/* Blog Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {posts.map((post, index) => (
             <article
-              key={post.title}
+              key={post.id}
               className={`bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 group cursor-pointer animate-fade-in-up ${
                 post.featured ? "md:col-span-2 md:row-span-2" : ""
               }`}
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              {/* Image Placeholder */}
-              <div className={`bg-gradient-to-br from-primary/20 to-primary/5 ${
-                post.featured ? "h-64" : "h-40"
-              } flex items-center justify-center`}>
-                <span className="px-4 py-1.5 bg-primary text-primary-foreground text-sm font-medium rounded-full">
-                  {post.category}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className={`p-6 ${post.featured ? "p-8" : ""}`}>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-                  <span className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    {post.date}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    {post.readTime}
+              <Link to={`/blog/${post.id}`} className="block">
+                {/* Image Placeholder */}
+                <div className={`bg-gradient-to-br from-primary/20 to-primary/5 ${
+                  post.featured ? "h-64" : "h-40"
+                } flex items-center justify-center`}>
+                  <span className="px-4 py-1.5 bg-primary text-primary-foreground text-sm font-medium rounded-full">
+                    {post.category}
                   </span>
                 </div>
 
-                <h3 className={`font-semibold text-foreground mb-3 group-hover:text-primary transition-colors ${
-                  post.featured ? "text-2xl" : "text-lg"
-                }`}>
-                  {post.title}
-                </h3>
+                {/* Content */}
+                <div className={`p-6 ${post.featured ? "p-8" : ""}`}>
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-4 h-4" />
+                      {post.date}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-4 h-4" />
+                      {post.readTime}
+                    </span>
+                  </div>
 
-                <p className={`text-muted-foreground leading-relaxed ${
-                  post.featured ? "" : "text-sm line-clamp-2"
-                }`}>
-                  {post.excerpt}
-                </p>
+                  <h3 className={`font-semibold text-foreground mb-3 group-hover:text-primary transition-colors ${
+                    post.featured ? "text-2xl" : "text-lg"
+                  }`}>
+                    {post.title}
+                  </h3>
 
-                <a
-                  href="#blog"
-                  className="inline-flex items-center text-primary font-medium mt-4 group/link"
-                >
-                  Read more
-                  <ArrowRight className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
-                </a>
-              </div>
+                  <p className={`text-muted-foreground leading-relaxed ${
+                    post.featured ? "" : "text-sm line-clamp-2"
+                  }`}>
+                    {post.excerpt}
+                  </p>
+
+                  <span className="inline-flex items-center text-primary font-medium mt-4 group/link">
+                    Read more
+                    <ArrowRight className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
+                  </span>
+                </div>
+              </Link>
             </article>
           ))}
         </div>

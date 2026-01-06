@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ArrowRight, Play } from "lucide-react";
 
 export function HeroSection() {
@@ -31,14 +32,14 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#contact" className="btn-primary inline-flex items-center justify-center gap-2 group">
+              <Link to="/start-project" className="btn-primary inline-flex items-center justify-center gap-2 group">
                 Get a Quote
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a href="#portfolio" className="btn-secondary inline-flex items-center justify-center gap-2">
+              </Link>
+              <Link to="/portfolio" className="btn-secondary inline-flex items-center justify-center gap-2">
                 <Play className="w-4 h-4" />
                 View Our Work
-              </a>
+              </Link>
             </div>
 
             {/* Stats */}
