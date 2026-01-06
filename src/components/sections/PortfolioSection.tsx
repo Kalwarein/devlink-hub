@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -6,6 +7,7 @@ const categories = ["All", "Websites", "Mobile Apps", "Dashboards", "Systems"];
 
 const projects = [
   {
+    id: "fintrack-dashboard",
     title: "FinTrack Dashboard",
     category: "Dashboards",
     description: "Real-time financial analytics platform with advanced charting",
@@ -13,6 +15,7 @@ const projects = [
     color: "from-blue-500 to-indigo-600",
   },
   {
+    id: "shopease-ecommerce",
     title: "ShopEase E-commerce",
     category: "Websites",
     description: "Full-featured online marketplace with 10k+ products",
@@ -20,6 +23,7 @@ const projects = [
     color: "from-emerald-500 to-teal-600",
   },
   {
+    id: "healthhub-mobile",
     title: "HealthHub Mobile",
     category: "Mobile Apps",
     description: "Healthcare appointment booking and telemedicine app",
@@ -27,6 +31,7 @@ const projects = [
     color: "from-rose-500 to-pink-600",
   },
   {
+    id: "logiflow-erp",
     title: "LogiFlow ERP",
     category: "Systems",
     description: "Enterprise resource planning for logistics companies",
@@ -34,6 +39,7 @@ const projects = [
     color: "from-amber-500 to-orange-600",
   },
   {
+    id: "travelmate-app",
     title: "TravelMate App",
     category: "Mobile Apps",
     description: "AI-powered travel planning and booking companion",
@@ -41,6 +47,7 @@ const projects = [
     color: "from-cyan-500 to-blue-600",
   },
   {
+    id: "newsportal-cms",
     title: "NewsPortal CMS",
     category: "Websites",
     description: "High-traffic news platform with custom CMS",
@@ -91,9 +98,10 @@ export function PortfolioSection() {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project, index) => (
-            <div
-              key={project.title}
-              className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 animate-scale-in"
+            <Link
+              key={project.id}
+              to={`/portfolio/${project.id}`}
+              className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 animate-scale-in block"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Project Image Placeholder */}
@@ -130,16 +138,16 @@ export function PortfolioSection() {
                   ))}
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
         {/* CTA */}
         <div className="text-center mt-12">
-          <a href="#contact" className="btn-primary inline-flex items-center gap-2">
+          <Link to="/portfolio" className="btn-primary inline-flex items-center gap-2">
             View Full Portfolio
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>
