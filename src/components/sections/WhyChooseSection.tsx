@@ -1,4 +1,7 @@
 import { Code2, Shield, Zap, HeartHandshake, Lightbulb, Headphones } from "lucide-react";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 const reasons = [
   {
@@ -33,63 +36,123 @@ const reasons = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease: "easeOut" as const },
+  },
+};
+
 export function WhyChooseSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
   return (
-    <section id="about" className="py-24 bg-sidebar text-sidebar-foreground">
+    <section id="about" className="py-24 bg-sidebar text-sidebar-foreground" ref={ref}>
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
-          <div className="animate-fade-in-up">
-            <span className="inline-block px-4 py-1.5 bg-primary/20 text-primary rounded-full text-sm font-medium mb-4">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <motion.span 
+              className="inline-block px-4 py-1.5 bg-primary/20 text-primary rounded-full text-sm font-medium mb-4"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               Why DevLink
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-sidebar-foreground">
+            </motion.span>
+            <motion.h2 
+              className="text-3xl md:text-4xl font-bold mb-6 text-sidebar-foreground"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
               Why Businesses Choose DevLink
-            </h2>
-            <p className="text-lg text-sidebar-foreground/70 mb-8 leading-relaxed">
+            </motion.h2>
+            <motion.p 
+              className="text-lg text-sidebar-foreground/70 mb-8 leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
               We're not just developers – we're partners in your digital transformation. 
               Our approach combines technical excellence with a deep understanding of 
               business challenges to deliver solutions that truly make an impact.
-            </p>
+            </motion.p>
 
-            <div className="flex items-center gap-8">
-              <div className="text-center">
-                <p className="text-4xl font-bold text-primary">98%</p>
-                <p className="text-sm text-sidebar-foreground/60">Client Satisfaction</p>
-              </div>
-              <div className="w-px h-12 bg-sidebar-border" />
-              <div className="text-center">
-                <p className="text-4xl font-bold text-primary">5+</p>
-                <p className="text-sm text-sidebar-foreground/60">Years Experience</p>
-              </div>
-              <div className="w-px h-12 bg-sidebar-border" />
-              <div className="text-center">
-                <p className="text-4xl font-bold text-primary">24/7</p>
-                <p className="text-sm text-sidebar-foreground/60">Support Available</p>
-              </div>
-            </div>
-          </div>
+            <motion.div 
+              className="flex items-center gap-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              {[
+                { value: "98%", label: "Client Satisfaction" },
+                { value: "5+", label: "Years Experience" },
+                { value: "24/7", label: "Support Available" }
+              ].map((stat, index) => (
+                <motion.div 
+                  key={stat.label}
+                  className="text-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                >
+                  <p className="text-4xl font-bold text-primary">{stat.value}</p>
+                  <p className="text-sm text-sidebar-foreground/60">{stat.label}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
 
           {/* Reasons Grid */}
-          <div className="grid sm:grid-cols-2 gap-6">
-            {reasons.map((reason, index) => (
-              <div
+          <motion.div 
+            className="grid sm:grid-cols-2 gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
+            {reasons.map((reason) => (
+              <motion.div
                 key={reason.title}
-                className="bg-sidebar-accent rounded-xl p-5 hover:bg-sidebar-accent/80 transition-colors animate-fade-in-up"
-                style={{ animationDelay: `${index * 100}ms` }}
+                variants={itemVariants}
+                className="bg-sidebar-accent rounded-xl p-5 hover:bg-sidebar-accent/80 transition-colors cursor-pointer"
+                whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
               >
-                <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
+                <motion.div 
+                  className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4"
+                  whileHover={{ rotate: 10, scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <reason.icon className="w-6 h-6 text-primary" />
-                </div>
+                </motion.div>
                 <h3 className="font-semibold text-sidebar-foreground mb-2">
                   {reason.title}
                 </h3>
                 <p className="text-sm text-sidebar-foreground/70 leading-relaxed">
                   {reason.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

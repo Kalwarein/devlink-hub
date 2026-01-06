@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { Code2, MapPin, Mail, Phone, Linkedin, Twitter, Github, Instagram } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const quickLinks = [
   { title: "Home", href: "/" },
@@ -34,17 +36,49 @@ const socials = [
   { icon: Instagram, href: "#", label: "Instagram" },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" as const },
+  },
+};
+
 export function Footer() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
   return (
-    <footer className="bg-sidebar text-sidebar-foreground pt-20 pb-8">
+    <footer className="bg-sidebar text-sidebar-foreground pt-20 pb-8" ref={ref}>
       <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <motion.div className="lg:col-span-2" variants={itemVariants}>
             <Link to="/" className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+              <motion.div 
+                className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center"
+                whileHover={{ rotate: 10, scale: 1.1 }}
+                transition={{ duration: 0.3 }}
+              >
                 <Code2 className="w-6 h-6 text-primary-foreground" />
-              </div>
+              </motion.div>
               <span className="text-xl font-bold">DevLink</span>
             </Link>
             <p className="text-sidebar-foreground/70 mb-6 max-w-sm leading-relaxed">
@@ -69,10 +103,10 @@ export function Footer() {
                 </a>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div>
+          <motion.div variants={itemVariants}>
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
@@ -86,10 +120,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Services */}
-          <div>
+          <motion.div variants={itemVariants}>
             <h4 className="font-semibold mb-4">Services</h4>
             <ul className="space-y-3">
               {services.map((service) => (
@@ -103,10 +137,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Cities */}
-          <div>
+          <motion.div variants={itemVariants}>
             <h4 className="font-semibold mb-4">Cities We Serve</h4>
             <ul className="space-y-3">
               {cities.map((city) => (
@@ -120,11 +154,16 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-sidebar-border pt-8">
+        <motion.div 
+          className="border-t border-sidebar-border pt-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-sm text-sidebar-foreground/60">
               © {new Date().getFullYear()} DevLink. All rights reserved.
@@ -141,18 +180,20 @@ export function Footer() {
 
             <div className="flex items-center gap-4">
               {socials.map((social) => (
-                <a
+                <motion.a
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
                   className="w-9 h-9 rounded-lg bg-sidebar-accent flex items-center justify-center text-sidebar-foreground/70 hover:bg-primary hover:text-primary-foreground transition-colors"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <social.icon className="w-4 h-4" />
-                </a>
+                </motion.a>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );
