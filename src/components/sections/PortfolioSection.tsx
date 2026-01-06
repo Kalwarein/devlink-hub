@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ExternalLink, ArrowRight } from "lucide-react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const categories = ["All", "Websites", "Mobile Apps", "Dashboards", "Systems"];
@@ -58,16 +59,23 @@ const projects = [
 
 export function PortfolioSection() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const filteredProjects = activeCategory === "All"
     ? projects
     : projects.filter(project => project.category === activeCategory);
 
   return (
-    <section id="portfolio" className="py-24 bg-secondary/30">
+    <section id="portfolio" className="py-24 bg-secondary/30" ref={ref}>
       <div className="container mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-12 animate-fade-in-up">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
+        >
           <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
             Our Work
           </span>
@@ -75,12 +83,17 @@ export function PortfolioSection() {
           <p className="section-subtitle mx-auto">
             Explore our portfolio of successful digital products we've built for clients worldwide.
           </p>
-        </div>
+        </motion.div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {categories.map((category) => (
-            <button
+        <motion.div 
+          className="flex flex-wrap justify-center gap-2 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {categories.map((category, index) => (
+            <motion.button
               key={category}
               onClick={() => setActiveCategory(category)}
               className={cn(
@@ -89,66 +102,96 @@ export function PortfolioSection() {
                   ? "bg-primary text-primary-foreground shadow-button"
                   : "bg-card text-muted-foreground hover:text-foreground hover:bg-secondary"
               )}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {category}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project, index) => (
-            <Link
-              key={project.id}
-              to={`/portfolio/${project.id}`}
-              className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 animate-scale-in block"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              {/* Project Image Placeholder */}
-              <div className={cn(
-                "h-48 bg-gradient-to-br flex items-center justify-center",
-                project.color
-              )}>
-                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-                  <ExternalLink className="w-8 h-8 text-white" />
-                </div>
-              </div>
-
-              {/* Project Info */}
-              <div className="p-6">
-                <span className="text-xs font-medium text-primary uppercase tracking-wider">
-                  {project.category}
-                </span>
-                <h3 className="text-xl font-semibold mt-2 mb-3 text-foreground group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  {project.description}
-                </p>
-
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 bg-secondary text-xs font-medium text-secondary-foreground rounded"
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          layout
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+              >
+                <Link
+                  to={`/portfolio/${project.id}`}
+                  className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 block"
+                >
+                  {/* Project Image Placeholder */}
+                  <motion.div 
+                    className={cn(
+                      "h-48 bg-gradient-to-br flex items-center justify-center relative overflow-hidden",
+                      project.color
+                    )}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <motion.div 
+                      className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center"
+                      whileHover={{ rotate: 10, scale: 1.1 }}
+                      transition={{ duration: 0.3 }}
                     >
-                      {tech}
+                      <ExternalLink className="w-8 h-8 text-white" />
+                    </motion.div>
+                  </motion.div>
+
+                  {/* Project Info */}
+                  <div className="p-6">
+                    <span className="text-xs font-medium text-primary uppercase tracking-wider">
+                      {project.category}
                     </span>
-                  ))}
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+                    <h3 className="text-xl font-semibold mt-2 mb-3 text-foreground group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      {project.description}
+                    </p>
+
+                    {/* Tech Stack */}
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2 py-1 bg-secondary text-xs font-medium text-secondary-foreground rounded"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
         {/* CTA */}
-        <div className="text-center mt-12">
+        <motion.div 
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
           <Link to="/portfolio" className="btn-primary inline-flex items-center gap-2">
             View Full Portfolio
             <ArrowRight className="w-4 h-4" />
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
