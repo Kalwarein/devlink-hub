@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { Header } from "@/components/layout/Header";
 import { AppSidebar } from "@/components/layout/AppSidebar";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { CitiesSection } from "@/components/sections/CitiesSection";
@@ -8,21 +9,27 @@ import { BlogSection } from "@/components/sections/BlogSection";
 import { WhyChooseSection } from "@/components/sections/WhyChooseSection";
 import { CTASection } from "@/components/sections/CTASection";
 import { Footer } from "@/components/sections/Footer";
-import { cn } from "@/lib/utils";
+import { useScrollToTop } from "@/hooks/useScrollToTop";
 
 const Index = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  useScrollToTop();
+
+  const handleCloseSidebar = useCallback(() => {
+    setSidebarOpen(false);
+  }, []);
+
+  const handleToggleSidebar = useCallback(() => {
+    setSidebarOpen(prev => !prev);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
-      <AppSidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(!sidebarOpen)} />
+      <Header onMenuToggle={handleToggleSidebar} />
+      <AppSidebar isOpen={sidebarOpen} onClose={handleCloseSidebar} />
       
-      <main
-        className={cn(
-          "transition-all duration-300",
-          sidebarOpen ? "lg:ml-72" : "lg:ml-20"
-        )}
-      >
+      <main className="pt-16">
         <HeroSection />
         <ServicesSection />
         <CitiesSection />
