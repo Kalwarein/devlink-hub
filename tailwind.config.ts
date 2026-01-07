@@ -65,6 +65,18 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        xl: "1rem",
+        "2xl": "1.25rem",
+        "3xl": "1.5rem",
+      },
+      boxShadow: {
+        'xs': 'var(--shadow-xs)',
+        'sm': 'var(--shadow-sm)',
+        'md': 'var(--shadow-md)',
+        'lg': 'var(--shadow-lg)',
+        'xl': 'var(--shadow-xl)',
+        'primary': 'var(--shadow-primary)',
+        'primary-hover': 'var(--shadow-primary-hover)',
       },
       keyframes: {
         "accordion-down": {
@@ -76,24 +88,30 @@ export default {
           to: { height: "0" },
         },
         float: {
+          "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
+          "50%": { transform: "translateY(-12px) rotate(3deg)" },
+        },
+        floatReverse: {
           "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
+          "50%": { transform: "translateY(8px)" },
         },
         pulse: {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.5" },
         },
+        shimmer: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        float: "float 3s ease-in-out infinite",
-        pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-      },
-      boxShadow: {
-        'card': '0 4px 6px -1px hsl(217 91% 50% / 0.05), 0 2px 4px -2px hsl(217 91% 50% / 0.05)',
-        'card-hover': '0 20px 25px -5px hsl(217 91% 50% / 0.1), 0 8px 10px -6px hsl(217 91% 50% / 0.1)',
-        'button': '0 4px 14px 0 hsl(217 91% 50% / 0.4)',
+        "float": "float 6s ease-in-out infinite",
+        "float-slow": "float 8s ease-in-out infinite",
+        "float-reverse": "floatReverse 5s ease-in-out infinite",
+        "pulse": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "shimmer": "shimmer 2s infinite",
       },
     },
   },
