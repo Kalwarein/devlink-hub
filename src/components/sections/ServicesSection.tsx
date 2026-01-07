@@ -49,40 +49,21 @@ const services = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" as const },
-  },
-};
-
 export function ServicesSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
-    <section id="services" className="py-24" ref={ref}>
+    <section id="services" className="py-28 section-gradient" ref={ref}>
       <div className="container mx-auto px-6">
         {/* Header */}
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-1.5 bg-accent text-accent-foreground rounded-full text-sm font-medium mb-6 border border-border/50">
             What We Do
           </span>
           <h2 className="section-title">Our Services</h2>
@@ -92,25 +73,24 @@ export function ServicesSection() {
         </motion.div>
 
         {/* Services Grid */}
-        <motion.div 
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {services.map((service) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, index) => (
             <motion.div
               key={service.title}
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: index * 0.1,
+                ease: [0.16, 1, 0.3, 1]
+              }}
               className="card-service group"
-              whileHover={{ y: -8, transition: { duration: 0.3 } }}
             >
               <motion.div 
-                className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-300"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ duration: 0.3 }}
+                className="w-14 h-14 rounded-2xl bg-accent flex items-center justify-center mb-6 group-hover:bg-primary transition-colors duration-500"
+                whileHover={{ scale: 1.05 }}
               >
-                <service.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+                <service.icon className="w-7 h-7 text-accent-foreground group-hover:text-primary-foreground transition-colors duration-500" />
               </motion.div>
               
               <h3 className="text-xl font-semibold mb-3 text-foreground">
@@ -125,7 +105,7 @@ export function ServicesSection() {
                 {service.features.map((feature) => (
                   <span
                     key={feature}
-                    className="px-3 py-1 bg-secondary text-secondary-foreground text-sm rounded-full"
+                    className="px-3 py-1.5 bg-secondary text-secondary-foreground text-sm rounded-lg border border-border/50"
                   >
                     {feature}
                   </span>
@@ -141,14 +121,14 @@ export function ServicesSection() {
               </Link>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* View All CTA */}
         <motion.div 
-          className="text-center mt-12"
+          className="text-center mt-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <Link to="/services" className="btn-secondary inline-flex items-center gap-2">
             View All Services
