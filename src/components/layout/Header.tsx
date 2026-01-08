@@ -36,10 +36,9 @@ export function Header({ onMenuToggle }: HeaderProps) {
 
   const navItems = [
     { title: "Home", href: "/" },
-    { title: "About", href: "/about" },
     { title: "Services", href: "/services" },
     { title: "Portfolio", href: "/portfolio" },
-    { title: "Cities", href: "/cities" },
+    { title: "Pricing", href: "/pricing" },
     { title: "Blog", href: "/blog" },
     { title: "Contact", href: "/contact" },
   ];
