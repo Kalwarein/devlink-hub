@@ -26,12 +26,13 @@ export function PricingCard({ plan }: PricingCardProps) {
 
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-foreground mb-2">{plan.name}</h3>
-        <div className="flex items-baseline gap-1 mb-3">
+        <div className="flex items-baseline gap-1 mb-1">
           <span className="text-3xl font-bold text-foreground">{plan.price}</span>
-          {plan.period && (
-            <span className="text-muted-foreground text-sm">{plan.period}</span>
-          )}
+          <span className="text-muted-foreground text-sm">one-time</span>
         </div>
+        {plan.monthlyFee && (
+          <p className="text-sm text-primary font-medium mb-3">{plan.monthlyFee}</p>
+        )}
         <p className="text-sm text-muted-foreground">{plan.description}</p>
       </div>
 
