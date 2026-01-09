@@ -2,6 +2,7 @@ export type PricingPlan = {
   id: string;
   name: string;
   price: string;
+  monthlyFee?: string;
   period?: string;
   description: string;
   features: string[];
@@ -13,49 +14,48 @@ export const pricingPlans: PricingPlan[] = [
   {
     id: "launch_pad",
     name: "Launch Pad",
-    price: "$499",
-    description: "Perfect for startups and small projects needing a quick web presence.",
+    price: "$50",
+    monthlyFee: "+$10/month",
+    description: "1–2 page basic website with clean professional layout.",
     features: [
-      "Single page website",
-      "Mobile responsive design",
-      "Basic SEO setup",
-      "Contact form",
-      "1 revision round",
-      "2 week delivery"
+      "1–2 page basic website",
+      "Free subdomain or client-provided domain",
+      "Mobile responsive",
+      "Clean professional layout",
+      "Contact information display",
+      "Basic support"
     ],
     isAdvanced: false,
   },
   {
     id: "essential_web",
     name: "Essential Web",
-    price: "$1,499",
-    description: "Complete website solution for growing businesses.",
+    price: "$80",
+    monthlyFee: "+$15/month",
+    description: "Complete website solution with custom domain and contact form.",
     features: [
-      "Up to 5 pages",
-      "Custom design",
-      "Mobile responsive",
-      "SEO optimization",
-      "Contact forms",
-      "Social media integration",
-      "3 revision rounds",
-      "4 week delivery"
+      "Custom domain setup",
+      "Up to 6 pages",
+      "Fully working contact form",
+      "User messages delivered to email",
+      "Responsive & optimized layout",
+      "Basic SEO structure"
     ],
     isAdvanced: false,
   },
   {
     id: "professional_site",
     name: "Professional Site",
-    price: "$3,499",
-    description: "Advanced website with CMS and extended functionality.",
+    price: "$120",
+    monthlyFee: "+$25/month",
+    description: "Advanced website with custom styling and security.",
     features: [
-      "Up to 15 pages",
-      "Custom CMS integration",
-      "Blog functionality",
-      "Advanced SEO",
-      "Analytics setup",
-      "Email marketing integration",
-      "5 revision rounds",
-      "6 week delivery"
+      "Up to 12 pages",
+      "Custom UI styling",
+      "Contact & feedback system",
+      "Logo placement",
+      "Performance optimization",
+      "Basic security & maintenance"
     ],
     isAdvanced: false,
     popular: true,
@@ -63,68 +63,69 @@ export const pricingPlans: PricingPlan[] = [
   {
     id: "brand_builder",
     name: "Brand Builder",
-    price: "$5,999",
-    description: "Complete brand and web presence package.",
+    price: "$200",
+    monthlyFee: "+$40/month",
+    description: "Complete brand setup with blog or portfolio section.",
     features: [
-      "Everything in Professional",
-      "Logo design",
-      "Brand guidelines",
-      "Typography & color system",
-      "Social media templates",
-      "Business card design",
-      "8 week delivery"
+      "Up to 15 pages",
+      "Brand setup (colors, typography, layout)",
+      "Blog or portfolio section",
+      "Smooth UI animations",
+      "SEO-ready structure"
     ],
     isAdvanced: true,
   },
   {
     id: "business_plus",
     name: "Business Plus",
-    price: "$9,999",
-    description: "Enterprise-grade web solution with advanced features.",
+    price: "$350",
+    monthlyFee: "+$60/month",
+    description: "Advanced business solution with custom Android app.",
     features: [
-      "Unlimited pages",
-      "E-commerce integration",
-      "Custom web application",
-      "User authentication",
-      "Database integration",
-      "API development",
-      "Premium support",
-      "12 week delivery"
+      "Up to 20 website pages",
+      "Advanced UI/UX",
+      "Blog or content section",
+      "Custom forms & integrations",
+      "Speed & performance optimization",
+      "Custom Android app (user-facing)"
     ],
     isAdvanced: true,
   },
   {
     id: "digital_platform",
     name: "Digital Platform",
-    price: "$14,999",
+    price: "$500",
+    monthlyFee: "+$170/year",
     period: "/year",
-    description: "Full digital platform with ongoing development and support.",
+    description: "Custom website and/or mobile app with backend support.",
     features: [
-      "Complete web platform",
-      "Mobile app (iOS & Android)",
-      "Admin dashboard",
-      "Cloud infrastructure",
-      "Continuous updates",
-      "Priority support 24/7",
-      "Monthly consultations",
-      "Google Search Console indexing"
+      "Custom website and/or mobile app",
+      "Android app or Android + iOS app",
+      "Optional backend & database",
+      "Admin-managed content",
+      "Client communication features",
+      "Secure & scalable architecture",
+      "Google Search Console & indexing"
     ],
     isAdvanced: true,
   },
   {
     id: "full_solution",
     name: "Full Solution",
-    price: "$24,999+",
-    description: "Complete digital transformation for enterprises.",
+    price: "$690",
+    monthlyFee: "+$90/month",
+    description: "Complete digital transformation with app publishing.",
     features: [
-      "Everything in Digital Platform",
-      "Custom software development",
-      "Multi-platform deployment",
-      "Dedicated project manager",
-      "SLA guarantee",
-      "All search engine indexing",
-      "Full branding package",
-      "Ongoing maintenance"
+      "Unlimited website pages",
+      "Full brand identity (logo, colors, typography)",
+      "Custom domain setup",
+      "Website + Android + iOS apps",
+      "Database & backend system",
+      "Admin dashboard",
+      "Advanced authentication",
+      "Optional payment integration",
+      "App publishing (Play Store & App Store)",
+      "All search engine indexing"
     ],
     isAdvanced: true,
   },
